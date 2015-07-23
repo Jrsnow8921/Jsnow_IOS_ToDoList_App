@@ -32,19 +32,32 @@
     XYZToDoItem *item2 = [[XYZToDoItem alloc] init];
     item2.itemName = @"Buy eggs";
     [self.toDoItems addObject:item2];
-    
+
     XYZToDoItem *item3 = [[XYZToDoItem alloc] init];
     item3.itemName = @"Read a book";
     [self.toDoItems addObject:item3];
     
+    XYZToDoItem *qty1 = [[XYZToDoItem alloc] init];
+    qty1.itemQty = @"2";
+    [self.toDoItems addObject:qty1];
+    
+    XYZToDoItem *qty2 = [[XYZToDoItem alloc] init];
+    qty2.itemQty = @"2";
+    [self.toDoItems addObject:qty2];
+    
+    XYZToDoItem *qty3 = [[XYZToDoItem alloc] init];
+    qty3.itemQty = @"3";
+    [self.toDoItems addObject:qty3];
 }
 
 - (IBAction)unwindToList:(UIStoryboardSegue *)segue
 {
     XYZAddToDoItemViewController *source = [segue sourceViewController];
     XYZToDoItem *item = source.toDoItem;
+    //XYZToDoItem *qty = source.toDoItem;
     if (item != nil) {
         [self.toDoItems addObject:item];
+        //[self.toDoItems addObject:qty];
         [self saveList];
 
         [self.tableView reloadData];
@@ -111,7 +124,8 @@
     // Configure the cell...
     XYZToDoItem *toDoItem = [self.toDoItems objectAtIndex:indexPath.row];
     cell.textLabel.text = toDoItem.itemName;
-    
+    cell.textLabel.text = toDoItem.itemQty;
+    cell.textLabel.numberOfLines = 0;
     if (toDoItem.completed) {
         cell.accessoryType = UITableViewCellAccessoryCheckmark;
     } else {

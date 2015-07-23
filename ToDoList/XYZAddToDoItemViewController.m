@@ -23,6 +23,7 @@
     if (self.textField.text.length > 0) {
         self.toDoItem = [[XYZToDoItem alloc] init];
         self.toDoItem.itemName = self.textField.text;
+        self.toDoItem.itemQty = self.textField.text;
         self.toDoItem.reminderDate = self.reminderDate.date;
         
         NSLog(@"reminderDate: %@", self.toDoItem.reminderDate);
@@ -32,8 +33,12 @@
         localNotif.fireDate = self.toDoItem.reminderDate;
         localNotif.timeZone = [NSTimeZone defaultTimeZone];
         localNotif.alertBody = self.toDoItem.itemName;
+        localNotif.alertBody = self.toDoItem.itemQty;
         localNotif.applicationIconBadgeNumber = 1;
-        
+        if ([UIApplication instancesRespondToSelector:@selector(registerUserNotificationSettings:)]) {
+            [[UIApplication sharedApplication] registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert|UIUserNotificationTypeSound|UIUserNotificationTypeBadge
+                                                                                                                  categories:nil]];
+        }
         [[UIApplication sharedApplication] scheduleLocalNotification:localNotif];
     }
 }

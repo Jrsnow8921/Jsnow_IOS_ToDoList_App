@@ -11,6 +11,7 @@
 @interface XYZToDoItem : NSObject <NSCoding>
 
 @property NSString *itemName;
+@property NSString *itemQty;
 @property BOOL completed;
 @property (readonly) NSDate *creationDate;
 @property NSDate *reminderDate;
